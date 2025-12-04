@@ -1,9 +1,11 @@
 {
-  "root": "apps/web",
+  "buildCommand": "cd apps/web && npm run build",
   "installCommand": "npm ci --legacy-peer-deps",
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "env": {
-    "NODE_OPTIONS": "--max_old_space_size=3072"
-  }
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api/index"
+    }
+  ]
 }
