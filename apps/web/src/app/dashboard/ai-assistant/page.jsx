@@ -46,8 +46,7 @@ export default function AIAssistantPage() {
     setIsLoading(true);
 
     try {
-      // Direct call to Gemini API
-      const GEMINI_API_KEY = "AIzaSyA6OHNFyLgluKtBHgQr3t_ik7vNJF6awFo";
+      // Call serverless endpoint which handles Gemini API key securely
       const systemPrompt = `Sen HydroIntel AI platformasining AI yordamchisisiz. Fermerlar uchun sug'orish, ekin boshqaruvi, bashorat va aqlli ferma texnologiyalari bo'yicha mutaxxassis yordam berasan. 
 
 Hozirgi ferma ma'lumotlari:
@@ -61,24 +60,11 @@ Har doim Oʻzbek tilida javob ber va ferma kontekstida savollarni hal qil. Amali
 
       const fullPrompt = `${systemPrompt}\n\n${userMessage.content}`;
 
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents: [
-              {
-                parts: [
-                  {
-                    text: fullPrompt,
-                  },
-                ],
-              },
-            ],
-          }),
-        }
-      );
+      const response = await fetch('/api/gemini', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: fullPrompt }),
+      });
 
       const data = await response.json();
       console.log("Gemini API response:", data);
