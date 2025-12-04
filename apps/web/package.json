@@ -4,7 +4,9 @@
 	"type": "module",
 	"scripts": {
 		"dev": "react-router dev",
-		"typecheck": "react-router typegen && tsc --noEmit"
+		"typecheck": "react-router typegen && tsc --noEmit",
+		"build": "vite build",
+		"preview": "vite preview --port $PORT --host"
 	},
 	"dependencies": {
 		"@auth/core": "^0.37.2",
